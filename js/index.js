@@ -31,35 +31,40 @@ function startGame() {
 }
 
 //Audio
-let theme = new Audio('/audio/main.mp3');
+let theme = new Audio('audio/main.mp3');
 theme.loop = true;
 theme.volume = .1;
 
-let easter = new Audio(`/audio/easter.mp3`)
+let easter = new Audio(`audio/easter.mp3`)
 
-let jump = new Audio('/audio/Jump.wav');
+let jump = new Audio('audio/Jump.wav');
 jump.volume = .5
+let jump2 = new Audio('audio/Jump.wav');
+jump2.volume = .5
 
-let dmgHero = new Audio(`/audio/dmgH.wav`)
+let dmgHero = new Audio(`audio/dmgH.wav`)
 dmgHero.volume = .5
 
-let dmgKnight = new Audio(`/audio/dmgK.wav`)
+let dmgKnight = new Audio(`audio/dmgK.wav`)
 dmgKnight.volume = .5
 
-let sword = new Audio(`/audio/sword.wav`)
-sword.volume = .5
+let sword = new Audio(`audio/sword.wav`)
+sword.volume = .25
 
-let sword1 = new Audio(`/audio/sword.wav`)
-sword1.volume = .5
+let sword1 = new Audio(`audio/sword.wav`)
+sword1.volume = .25
 
-let swordHit = new Audio(`/audio/swordHit.wav`)
+let swordHit = new Audio(`audio/swordHit.wav`)
 swordHit.volume = .5
 
-let countDown = new Audio(`/audio/countdown.wav`)
+let countDown = new Audio(`audio/countdown.wav`)
 
-let run = new Audio(`/audio/running.mp3`)
-run.loop = false
-run.volume = 0.25
+let play1 = new Audio(`audio/player1.mp3`)
+
+let play2 = new Audio(`audio/player2.mp3`)
+
+
+
 
 
 
@@ -70,7 +75,7 @@ const background = new Sprite({
     x: 0,
     y: 0
   },
-  imageSrc: './img/Background.png'
+  imageSrc: 'img/Background.png'
 })
 
 const jeff = new Sprite({
@@ -78,7 +83,7 @@ const jeff = new Sprite({
     x: 0,
     y: 0
   },
-  imageSrc: './img/jeff.jpeg'
+  imageSrc: 'img/jeff.jpeg'
 })
 
 const player = new Fighter({
@@ -94,7 +99,7 @@ const player = new Fighter({
     x: 0,
     y: 0
   },
-  imageSrc: './img/knight/Idle.png',
+  imageSrc: 'img/knight/Idle.png',
   framesMax: 11,
   scale: 2,
   offset: {
@@ -103,31 +108,31 @@ const player = new Fighter({
   },
   sprites: {
     idle: {
-      imageSrc: './img/knight/Idle.png',
+      imageSrc: 'img/knight/Idle.png',
       framesMax: 11
     },
     run: {
-      imageSrc: './img/knight/Run.png',
+      imageSrc: 'img/knight/Run.png',
       framesMax: 8
     },
     jump: {
-      imageSrc: './img/knight/Jump.png',
+      imageSrc: 'img/knight/Jump.png',
       framesMax: 3
     },
     fall: {
-      imageSrc: './img/knight/Fall.png',
+      imageSrc: 'img/knight/Fall.png',
       framesMax: 3
     },
     attack1: {
-      imageSrc: './img/knight/Attack2.png',
+      imageSrc: 'img/knight/Attack2.png',
       framesMax: 7
     },
     takeHit: {
-      imageSrc: './img/knight/Take Hit.png',
+      imageSrc: 'img/knight/Take Hit.png',
       framesMax: 4,
     },
     death: {
-      imageSrc: './img/knight/Death.png',
+      imageSrc: 'img/knight/Death.png',
       framesMax: 11
     }
   },
@@ -140,6 +145,8 @@ const player = new Fighter({
     height: 50
   }
 })
+
+console.log(player)
 
 const enemy = new Fighter({
   position: {
@@ -155,7 +162,7 @@ const enemy = new Fighter({
     x: -50,
     y: 0
   },
-  imageSrc: './img/hero/Idle.png',
+  imageSrc: 'img/hero/Idle.png',
   framesMax: 10,
   scale: 2,
   offset: {
@@ -164,31 +171,31 @@ const enemy = new Fighter({
   },
   sprites: {
     idle: {
-      imageSrc: './img/hero/Idle.png',
+      imageSrc: 'img/hero/Idle.png',
       framesMax: 10
     },
     run: {
-      imageSrc: './img/hero/Run.png',
+      imageSrc: 'img/hero/Run.png',
       framesMax: 8
     },
     jump: {
-      imageSrc: './img/hero/Jump.png',
+      imageSrc: 'img/hero/Jump.png',
       framesMax: 3
     },
     fall: {
-      imageSrc: './img/hero/Fall.png',
+      imageSrc: 'img/hero/Fall.png',
       framesMax: 3
     },
     attack1: {
-      imageSrc: './img/hero/Attack1.png',
+      imageSrc: 'img/hero/Attack1.png',
       framesMax: 7
     },
     takeHit: {
-      imageSrc: './img/hero/Take hit.png',
+      imageSrc: 'img/hero/Take hit.png',
       framesMax: 3
     },
     death: {
-      imageSrc: './img/hero/Death.png',
+      imageSrc: 'img/hero/Death.png',
       framesMax: 11
     }
   },
@@ -201,8 +208,6 @@ const enemy = new Fighter({
     height: 50
   }
 })
-
-console.log(player)
 
 const keys = {
   a: {
@@ -225,6 +230,7 @@ const keys = {
 // decreaseTimer()
 function animate() {
   window.requestAnimationFrame(animate)
+  
   c.fillStyle = 'black'
   c.fillRect(0, 0, canvas.width, canvas.height)
   if(keys.J.pressed === true) {
@@ -250,6 +256,17 @@ function animate() {
   } else {
     player.switchSprite('idle')
   }
+  
+  //player collision
+  if(player.position.x <= -50) {
+    player.position.x = -50
+  }
+  if(player.position.x >= 875) {
+    player.position.x = 875
+  }
+  if(player.position.y <= -98) {
+    player.position.y = -98
+  }
 
   // jumping
   if (player.velocity.y < 0) {
@@ -269,6 +286,17 @@ function animate() {
     enemy.switchSprite('idle')
   }
 
+  //enemy collsion
+  if(enemy.position.x <= 130) {
+    enemy.position.x = 130 
+  }
+  if(enemy.position.x >= 1100) {
+    enemy.position.x = 1100
+  }
+  if(enemy.position.y <= -139) {
+    enemy.position.y = -130
+  }
+
   // jumping
   if (enemy.velocity.y < 0) {
     enemy.switchSprite('jump')
@@ -286,6 +314,9 @@ function animate() {
     player.framesCurrent === 4
   ) {
     dmgHero.play()
+    dmgHero.pause();
+    dmgHero.currentTime = 0;
+    dmgHero.play();
     enemy.takeHit()
     player.isAttacking = false
 
@@ -308,8 +339,14 @@ function animate() {
     enemy.isAttacking &&
     enemy.framesCurrent === 2
   ) {
-    swordHit.play()
     dmgKnight.play()
+    dmgKnight.pause();
+    dmgKnight.currentTime = 0;
+    dmgKnight.play();
+    swordHit.play()
+    swordHit.pause();
+    swordHit.currentTime = 0;
+    swordHit.play();
     player.takeHit()
     enemy.isAttacking = false
 
@@ -329,29 +366,34 @@ function animate() {
   }
 }
 
-// animate()
-let flag = false
 
+//Player controls
 window.addEventListener('keydown', (event) => {
   if (!player.dead) {
     switch (event.key) {
       case 'd':
         keys.d.pressed = true
-        player.lastKey = 'd' 
-        run.play()      
+        player.lastKey = 'd'     
         break
       case 'a':
         keys.a.pressed = true
         player.lastKey = 'a'
-        run.play() 
         break
       case 'w':
         player.velocity.y = -17
+        jump.play()
+        jump.pause();
+        jump.currentTime = 0;
         jump.play();
         break
        case 's':
+        // setTimeout(() => {
         player.attack()
         sword.play()
+        sword.pause();
+        sword.currentTime = 0;
+        sword.play();
+        // }, "100 ")
         break
         case ` `:
         startGame()
@@ -362,26 +404,32 @@ window.addEventListener('keydown', (event) => {
     }
   }
 
+  //Enemy Controls
   if (!enemy.dead) {
     switch (event.key) {
       case 'ArrowRight':
         keys.ArrowRight.pressed = true
         enemy.lastKey = 'ArrowRight'
-        run.play() 
         break
       case 'ArrowLeft':
         keys.ArrowLeft.pressed = true
         enemy.lastKey = 'ArrowLeft'
-        run.play() 
         break
       case 'ArrowUp':
         enemy.velocity.y = -18
-        jump.play()
+        jump2.play()
+        jump2.pause();
+        jump2.currentTime = 0;
+        jump2.play();
         break
       case 'ArrowDown':
+        // setTimeout(() => {
         enemy.attack()
         sword1.play()
-
+        sword1.pause();
+        sword1.currentTime = 0;
+        sword1.play();
+        // }, "100 ")
         break
     }
   }
@@ -391,11 +439,9 @@ window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'd':
       keys.d.pressed = false
-      run.pause()
       break
     case 'a':
       keys.a.pressed = false
-      run.pause()
       break
   }
 
@@ -403,11 +449,9 @@ window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'ArrowRight':
       keys.ArrowRight.pressed = false
-      run.pause()
       break
     case 'ArrowLeft':
       keys.ArrowLeft.pressed = false
-      run.pause()
       break
   }
 })
