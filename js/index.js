@@ -128,7 +128,7 @@ const player = new Fighter({
       framesMax: 7
     },
     takeHit: {
-      imageSrc: 'img/knight/Take Hit.png',
+      imageSrc: 'img/knight/Take-HitK.png',
       framesMax: 4,
     },
     death: {
@@ -191,7 +191,7 @@ const enemy = new Fighter({
       framesMax: 7
     },
     takeHit: {
-      imageSrc: 'img/hero/Take hit.png',
+      imageSrc: 'img/hero/Take-HitH.png',
       framesMax: 3
     },
     death: {
