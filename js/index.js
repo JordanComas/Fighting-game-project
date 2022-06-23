@@ -1,15 +1,13 @@
 const canvas = document.querySelector("#canvas");
 const c = canvas.getContext("2d");
-// document.getElementById(`button`).onclick = () => {
-//   startGame()
-// }
 
 canvas.width = 1024;
 canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
-let blink_speed = 800; // every 1000 == 1 second, adjust to suit
+//Start game button
+let blink_speed = 800; // every 1000 == 1 second
 let t = setInterval(function () {
   let ele = document.getElementById("pressEnter");
   ele.style.visibility =
@@ -31,39 +29,6 @@ function startGame() {
     theme.play();
   }
 }
-
-//Audio
-let theme = new Audio("audio/main.mp3");
-theme.loop = true;
-theme.volume = 0.1;
-
-let easter = new Audio(`audio/easter.mp3`);
-
-let jump = new Audio("audio/Jump.wav");
-jump.volume = 0.5;
-let jump2 = new Audio("audio/Jump.wav");
-jump2.volume = 0.5;
-
-let dmgHero = new Audio(`audio/dmgH.wav`);
-dmgHero.volume = 0.5;
-
-let dmgKnight = new Audio(`audio/dmgK.wav`);
-dmgKnight.volume = 0.5;
-
-let sword = new Audio(`audio/sword.wav`);
-sword.volume = 0.25;
-
-let sword1 = new Audio(`audio/sword.wav`);
-sword1.volume = 0.25;
-
-let swordHit = new Audio(`audio/swordHit.wav`);
-swordHit.volume = 0.5;
-
-let countDown = new Audio(`audio/countdown.wav`);
-
-let play1 = new Audio(`audio/player1.mp3`);
-
-let play2 = new Audio(`audio/player2.mp3`);
 
 const gravity = 0.7;
 
@@ -142,8 +107,6 @@ const player = new Fighter({
     height: 50,
   },
 });
-
-console.log(player);
 
 const enemy = new Fighter({
   position: {
@@ -224,7 +187,6 @@ const keys = {
   },
 };
 
-// decreaseTimer()
 function animate() {
   window.requestAnimationFrame(animate);
 
@@ -265,7 +227,7 @@ function animate() {
     player.position.y = -98;
   }
 
-  // jumping
+  // Jumping
   if (player.velocity.y < 0) {
     player.switchSprite("jump");
   } else if (player.velocity.y > 0) {
@@ -283,7 +245,7 @@ function animate() {
     enemy.switchSprite("idle");
   }
 
-  //enemy collsion
+  //Enemy collsion
   if (enemy.position.x <= 130) {
     enemy.position.x = 130;
   }
@@ -294,14 +256,14 @@ function animate() {
     enemy.position.y = -130;
   }
 
-  // jumping
+  // Jumping enemy
   if (enemy.velocity.y < 0) {
     enemy.switchSprite("jump");
   } else if (enemy.velocity.y > 0) {
     enemy.switchSprite("fall");
   }
 
-  // detect for collision & enemy gets hit
+  // Detect for collision & enemy gets hit
   if (
     rectangularCollision({
       rectangle1: player,
@@ -322,12 +284,12 @@ function animate() {
     });
   }
 
-  // if player misses
+  // If player misses
   if (player.isAttacking && player.framesCurrent === 4) {
     player.isAttacking = false;
   }
 
-  // this is where our player gets hit
+  // This is where player gets hit
   if (
     rectangularCollision({
       rectangle1: enemy,
@@ -352,12 +314,12 @@ function animate() {
     });
   }
 
-  // if enemy misses
+  // If enemy misses
   if (enemy.isAttacking && enemy.framesCurrent === 2) {
     enemy.isAttacking = false;
   }
 
-  // end game based on health
+  // End game based on health
   if (enemy.health <= 0 || player.health <= 0) {
     determineWinner({ player, enemy, timerId });
   }
@@ -378,18 +340,13 @@ window.addEventListener("keydown", (event) => {
       case "w":
         player.velocity.y = -17;
         jump.play();
-        // jump.pause();
-        // jump.currentTime = 0;
-        // jump.play();
         break;
       case "s":
-        // setTimeout(() => {
         player.attack();
         sword.play();
         sword.pause();
         sword.currentTime = 0;
         sword.play();
-        // }, "100 ")
         break;
       case ` `:
         startGame();
@@ -414,24 +371,20 @@ window.addEventListener("keydown", (event) => {
       case "ArrowUp":
         enemy.velocity.y = -18;
         jump2.play();
-        // jump2.pause();
-        // jump2.currentTime = 0;
-        // jump2.play();
         break;
       case "ArrowDown":
-        // setTimeout(() => {
         enemy.attack();
         sword1.play();
         sword1.pause();
         sword1.currentTime = 0;
         sword1.play();
-        // }, "100 ")
         break;
     }
   }
 });
 
 window.addEventListener("keyup", (event) => {
+  //Player keys
   switch (event.key) {
     case "d":
       keys.d.pressed = false;
@@ -441,7 +394,7 @@ window.addEventListener("keyup", (event) => {
       break;
   }
 
-  // enemy keys
+  // Enemy keys
   switch (event.key) {
     case "ArrowRight":
       keys.ArrowRight.pressed = false;
