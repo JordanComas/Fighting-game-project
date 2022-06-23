@@ -13,111 +13,28 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-        font-family: "Press Start 2P", cursive;
-      }
-    </style>
+    <link rel="stylesheet" href="canvas.css" />
   </head>
 </html>
 <body>
   <!-- red container div -->
-  <div style="position: relative; display: inline-block; height: 576px">
+  <div id="container-div">
     <!-- smaller red container div -->
-    <div
-      style="
-        position: absolute;
-        display: flex;
-        width: 100%;
-        align-items: center;
-        padding: 20px;
-      "
-    >
+    <div id="small-container-div">
       <!-- player health -->
-      <div
-        id="healthBar-player"
-        style="
-          position: relative;
-          width: 100%;
-          display: flex;
-          justify-content: flex-end;
-          border-top: 4px solid white;
-          border-left: 4px solid white;
-          border-bottom: 4px solid white;
-        "
-      >
-        <div style="background-color: red; height: 30px; width: 100%"></div>
-        <div
-          id="playerHealth"
-          style="
-            position: absolute;
-            background: green;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-          "
-        ></div>
+      <div id="healthBar-player">
+        <div id="backHealth"></div>
+        <div id="playerHealth"></div>
       </div>
-
       <!-- timer -->
-      <div
-        id="timer"
-        style="
-          background-color: black;
-          width: 100px;
-          height: 50px;
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          border: 4px solid white;
-        "
-      ></div>
+      <div id="timer"></div>
       <!-- enemy health -->
-      <div
-        style="
-          position: relative;
-          width: 100%;
-          border-top: 4px solid white;
-          border-bottom: 4px solid white;
-          border-right: 4px solid white;
-        "
-      >
-        <div style="background-color: red; height: 30px"></div>
-        <div
-          id="enemyHealth"
-          style="
-            position: absolute;
-            background: green;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-          "
-        ></div>
+      <div id="enemyBorder">
+        <div id="enemybackhealth"></div>
+        <div id="enemyHealth"></div>
       </div>
-      <div></div>
     </div>
-    <div
-      id="displayText"
-      style="
-        position: absolute;
-        color: white;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: none;
-        height: 576px;
-      "
-    >
-      Tie
-    </div>
+    <div id="displayText">Tie</div>
     <!-- Health bar texts -->
     <div class="player1Display">Player 1</div>
     <div class="player2Display">Player 2</div>
@@ -131,17 +48,17 @@
     <div class="title">Instructions:</div>
     <div class="wasd">Player 1<img src="img/wasd controls.png" alt="" /></div>
     <ul class="desc_wasd">
-      <li>W:Jump</li>
-      <li>A:Run Left</li>
-      <li>S:Attack</li>
-      <li>D:Run right</li>
+      <li>W: Jump</li>
+      <li>A: Run Left</li>
+      <li>S: Attack</li>
+      <li>D: Run right</li>
     </ul>
     <div class="arrow">Player 2<img src="img/arrow.png" alt="" /></div>
     <ul class="desc_arrow">
-      <li>Up:Jump</li>
-      <li>Right:Run Right</li>
-      <li>Down:Attack</li>
-      <li>Left:Run Left</li>
+      <li>Up: Jump</li>
+      <li>Right: Run Right</li>
+      <li>Down: Attack</li>
+      <li>Left: Run Left</li>
     </ul>
   </div>
   <script

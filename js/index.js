@@ -6,6 +6,8 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
+const gravity = 0.7;
+
 //Start game button
 let blink_speed = 800; // every 1000 == 1 second
 let t = setInterval(function () {
@@ -29,8 +31,6 @@ function startGame() {
     theme.play();
   }
 }
-
-const gravity = 0.7;
 
 const background = new Sprite({
   position: {
